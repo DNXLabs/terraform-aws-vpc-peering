@@ -21,6 +21,16 @@ data "aws_subnet" "requester" {
   id    = "${data.aws_subnet_ids.requester.ids[count.index]}"
 }
 
+data "aws_subnet_ids" "accepter_public" {
+  provider = "aws.peer"
+  vpc_id   = "${var.peer_vpc_id}"
+
+  filter {
+    name   = "tag:Scheme"
+    values = ["public"]
+  }
+}
+
 data "aws_subnet_ids" "accepter_private" {
   provider = "aws.peer"
   vpc_id   = "${var.peer_vpc_id}"
@@ -41,6 +51,12 @@ data "aws_subnet_ids" "accepter_secure" {
   }
 }
 
+data "aws_route_table" "accepter_public" {
+  provider  = "aws.peer"
+  count     = "${length(data.aws_subnet_ids.accepter_public.ids)}"
+  subnet_id = "${data.aws_subnet_ids.accepter_public.ids[count.index]}"
+}
+
 data "aws_route_table" "accepter_private" {
   provider  = "aws.peer"
   count     = "${length(data.aws_subnet_ids.accepter_private.ids)}"
@@ -56,6 +72,15 @@ data "aws_route_table" "accepter_secure" {
 data "aws_route_table" "requester" {
   count     = "${length(data.aws_subnet_ids.requester.ids)}"
   subnet_id = "${data.aws_subnet_ids.requester.ids[count.index]}"
+}
+
+data "aws_network_acls" "accepter_public" {
+  provider = "aws.peer"
+  vpc_id   = "${var.peer_vpc_id}"
+
+  tags = {
+    Scheme = "public"
+  }
 }
 
 data "aws_network_acls" "accepter_private" {
