@@ -14,3 +14,7 @@ variable "serial" {
   default     = 0
   description = "Number of this peering, distinct from others, to avoid conflict with NACL rule number"
 }
+
+variable "accepter_region" {
+  description = "Region of acccepter"
+}
