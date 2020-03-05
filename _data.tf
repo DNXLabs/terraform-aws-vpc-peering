@@ -18,7 +18,7 @@ data "aws_subnet_ids" "requester" {
 
 data "aws_subnet" "requester" {
   count = length(data.aws_subnet_ids.requester.ids)
-  id    = data.aws_subnet_ids.requester.ids[count.index]
+  id    = tolist(data.aws_subnet_ids.requester.ids)[count.index]
 }
 
 data "aws_subnet_ids" "accepter_public" {
@@ -54,24 +54,24 @@ data "aws_subnet_ids" "accepter_secure" {
 data "aws_route_table" "accepter_public" {
   provider  = aws.peer
   count     = length(data.aws_subnet_ids.accepter_public.ids)
-  subnet_id = data.aws_subnet_ids.accepter_public.ids[count.index]
+  subnet_id = tolist(data.aws_subnet_ids.accepter_public.ids)[count.index]
 }
 
 data "aws_route_table" "accepter_private" {
   provider  = aws.peer
   count     = length(data.aws_subnet_ids.accepter_private.ids)
-  subnet_id = data.aws_subnet_ids.accepter_private.ids[count.index]
+  subnet_id = tolist(data.aws_subnet_ids.accepter_private.ids)[count.index]
 }
 
 data "aws_route_table" "accepter_secure" {
   provider  = aws.peer
   count     = length(data.aws_subnet_ids.accepter_secure.ids)
-  subnet_id = data.aws_subnet_ids.accepter_secure.ids[count.index]
+  subnet_id = tolist(data.aws_subnet_ids.accepter_secure.ids)[count.index]
 }
 
 data "aws_route_table" "requester" {
   count     = length(data.aws_subnet_ids.requester.ids)
-  subnet_id = data.aws_subnet_ids.requester.ids[count.index]
+  subnet_id = tolist(data.aws_subnet_ids.requester.ids)[count.index]
 }
 
 data "aws_network_acls" "accepter_public" {
