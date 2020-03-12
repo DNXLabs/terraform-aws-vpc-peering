@@ -1,6 +1,6 @@
 resource "aws_route" "accepter_public" {
   provider = aws.peer
-  count = length(distinct(data.aws_route_table.accepter_public.*.route_table_id))
+  count    = length(distinct(data.aws_route_table.accepter_public.*.route_table_id))
   route_table_id = element(
     distinct(data.aws_route_table.accepter_public.*.route_table_id),
     count.index
@@ -11,7 +11,7 @@ resource "aws_route" "accepter_public" {
 
 resource "aws_route" "accepter_private" {
   provider = aws.peer
-  count = length(distinct(data.aws_route_table.accepter_private.*.route_table_id))
+  count    = length(distinct(data.aws_route_table.accepter_private.*.route_table_id))
   route_table_id = element(
     distinct(data.aws_route_table.accepter_private.*.route_table_id),
     count.index
@@ -22,7 +22,7 @@ resource "aws_route" "accepter_private" {
 
 resource "aws_route" "accepter_secure" {
   provider = aws.peer
-  count = length(distinct(data.aws_route_table.accepter_secure.*.route_table_id))
+  count    = length(distinct(data.aws_route_table.accepter_secure.*.route_table_id))
   route_table_id = element(
     distinct(data.aws_route_table.accepter_secure.*.route_table_id),
     count.index
