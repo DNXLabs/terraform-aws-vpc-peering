@@ -1,10 +1,13 @@
-# terraform-google-stackdriver-uptime
+# terraform-aws-vpc-peering
 
-[![Lint Status](https://github.com/DNXLabs/terraform-google-stackdriver-uptime/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-google-stackdriver-uptime/actions)
-[![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-google-stackdriver-uptime)](https://github.com/DNXLabs/terraform-google-stackdriver-uptime/blob/master/LICENSE)
+[![Lint Status](https://github.com/DNXLabs/terraform-aws-vpc-peering/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-vpc-peering/actions)
+[![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-vpc-peering)](https://github.com/DNXLabs/terraform-aws-vpc-peering/blob/master/LICENSE)
+
+<!--- BEGIN_TF_DOCS --->
+<!--- END_TF_DOCS --->
 
 ## Author
-App managed by DNX Solutions.
+Module managed by [DNX Solutions](https://github.com/DNXLabs).
 
 ## License
-Apache 2 Licensed. See LICENSE for full details.
+Apache 2 Licensed. See [LICENSE](https://github.com/DNXLabs/terraform-aws-vpc-peering/blob/master/LICENSE) for full details.
