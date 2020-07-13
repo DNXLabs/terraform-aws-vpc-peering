@@ -4,6 +4,7 @@
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-vpc-peering)](https://github.com/DNXLabs/terraform-aws-vpc-peering/blob/master/LICENSE)
 
 <!--- BEGIN_TF_DOCS --->
+
 ## Requirements
 
 | Name | Version |
