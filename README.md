@@ -3,6 +3,23 @@
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-vpc-peering/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-vpc-peering/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-vpc-peering)](https://github.com/DNXLabs/terraform-aws-vpc-peering/blob/master/LICENSE)
 
+This terraform modules provides a resource to manage Virtual Private Cloud (VPC) peering connections. A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses.
+
+This module creates :
+
+ - A VPC requester - VPC that sends a request to the owner of the accepter VPC to create the VPC peering connection
+ - A VPC Accepter - VPC  that accepts the VPC peering connection request to activate the VPC peering connection.
+ - A route table  - That contains a set of rules, called routes, that are used to determine where network traffic from your subnet or gateway is directed.
+ - Network Access Control list (ACL) - NACLs provide a rule-based tool for controlling network traffic ingress and egress at the protocol and subnet level.
+     - in_accepter_public_from_requester
+     - out_accepter_public_to_requester
+     - in_accepter_private_from_requester
+     - out_accepter_private_to_requester
+     - in_accepter_secure_from_requester
+     - out_accepter_secure_to_requester
+     - in_requester_from_accepter
+     - out_requester_to_accepter
+
 <!--- BEGIN_TF_DOCS --->
 
 ## Requirements
