@@ -5,7 +5,7 @@
 
 This terraform modules provides a resource to manage Virtual Private Cloud (VPC) peering connections. A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses.
 
-This module creates :
+The following resources will be created:
 
  - A VPC requester - VPC that sends a request to the owner of the accepter VPC to create the VPC peering connection
  - A VPC Accepter - VPC  that accepts the VPC peering connection request to activate the VPC peering connection.
@@ -52,7 +52,9 @@ No output.
 <!--- END_TF_DOCS --->
 
 ## Author
+
 Module managed by [DNX Solutions](https://github.com/DNXLabs).
 
 ## License
+
 Apache 2 Licensed. See [LICENSE](https://github.com/DNXLabs/terraform-aws-vpc-peering/blob/master/LICENSE) for full details.
