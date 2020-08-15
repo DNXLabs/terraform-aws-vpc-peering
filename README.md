@@ -3,7 +3,7 @@
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-vpc-peering/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-vpc-peering/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-vpc-peering)](https://github.com/DNXLabs/terraform-aws-vpc-peering/blob/master/LICENSE)
 
-This terraform modules provides a resource to manage Virtual Private Cloud (VPC) peering connections. A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses.
+This terraform module provide resources to manage Virtual Private Cloud (VPC) peering connections. A VPC peering connection is a networking connection between two VPCs that enables you to route traffic between them using private IPv4 addresses or IPv6 addresses.
 
 The following resources will be created:
 
