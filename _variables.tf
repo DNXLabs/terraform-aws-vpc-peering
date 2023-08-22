@@ -24,7 +24,7 @@ variable "mode" {
   default = "complete"
 
   validation {
-    condition = contains(["complete", "requester", "accepter"])
+    condition = contains(["complete", "requester", "accepter"], var.mode)
     error_message = "Valid values for mode are: (complete, requester, accepter)"
   }
 }
