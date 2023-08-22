@@ -21,10 +21,10 @@ variable "accepter_region" {
 
 variable "mode" {
   description = "Defines if the module will create accepter or requester or both"
-  default = "complete"
+  default     = "complete"
 
   validation {
-    condition = contains(["complete", "requester", "accepter"], var.mode)
+    condition     = contains(["complete", "requester", "accepter"], var.mode)
     error_message = "Valid values for mode are: (complete, requester, accepter)."
   }
 }
@@ -34,6 +34,6 @@ variable "requester_connection_id" {
 }
 
 locals {
-  create_requester  = var.mode == "complete" || var.mode == "requester"
-  create_accepter = var.mode == "complete" || var.mode == "accepter"
+  create_requester = var.mode == "complete" || var.mode == "requester"
+  create_accepter  = var.mode == "complete" || var.mode == "accepter"
 }

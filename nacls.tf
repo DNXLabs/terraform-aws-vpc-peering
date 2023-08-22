@@ -1,6 +1,6 @@
 resource "aws_network_acl_rule" "in_accepter_public_from_requester" {
   provider       = aws.peer
-  count          = locals.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
+  count          = local.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
   network_acl_id = tolist(data.aws_network_acls.accepter_public.ids)[0]
   rule_number    = 1000 + count.index
   egress         = false
@@ -11,7 +11,7 @@ resource "aws_network_acl_rule" "in_accepter_public_from_requester" {
 
 resource "aws_network_acl_rule" "out_accepter_public_to_requester" {
   provider       = aws.peer
-  count          = locals.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
+  count          = local.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
   network_acl_id = tolist(data.aws_network_acls.accepter_public.ids)[0]
   rule_number    = 1000 + count.index
   egress         = true
@@ -22,7 +22,7 @@ resource "aws_network_acl_rule" "out_accepter_public_to_requester" {
 
 resource "aws_network_acl_rule" "in_accepter_private_from_requester" {
   provider       = aws.peer
-  count          = locals.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
+  count          = local.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
   network_acl_id = tolist(data.aws_network_acls.accepter_private.ids)[0]
   rule_number    = 1000 + count.index
   egress         = false
@@ -33,7 +33,7 @@ resource "aws_network_acl_rule" "in_accepter_private_from_requester" {
 
 resource "aws_network_acl_rule" "out_accepter_private_to_requester" {
   provider       = aws.peer
-  count          = locals.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
+  count          = local.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
   network_acl_id = tolist(data.aws_network_acls.accepter_private.ids)[0]
   rule_number    = 1000 + count.index
   egress         = true
@@ -44,7 +44,7 @@ resource "aws_network_acl_rule" "out_accepter_private_to_requester" {
 
 resource "aws_network_acl_rule" "in_accepter_secure_from_requester" {
   provider       = aws.peer
-  count          = locals.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
+  count          = local.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
   network_acl_id = tolist(data.aws_network_acls.accepter_secure.ids)[0]
   rule_number    = 1000 + count.index
   egress         = false
@@ -55,7 +55,7 @@ resource "aws_network_acl_rule" "in_accepter_secure_from_requester" {
 
 resource "aws_network_acl_rule" "out_accepter_secure_to_requester" {
   provider       = aws.peer
-  count          = locals.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
+  count          = local.create_accepter ? length(data.aws_subnet.requester.*.cidr_block) : 0
   network_acl_id = tolist(data.aws_network_acls.accepter_secure.ids)[0]
   rule_number    = 1000 + count.index
   egress         = true
@@ -65,7 +65,7 @@ resource "aws_network_acl_rule" "out_accepter_secure_to_requester" {
 }
 
 resource "aws_network_acl_rule" "in_requester_from_accepter" {
-  count = locals.create_requester ? 1 : 0
+  count          = local.create_requester ? 1 : 0
   network_acl_id = tolist(data.aws_network_acls.requester.ids)[0]
   rule_number    = 1000 + var.serial
   egress         = false
@@ -75,7 +75,7 @@ resource "aws_network_acl_rule" "in_requester_from_accepter" {
 }
 
 resource "aws_network_acl_rule" "out_requester_to_accepter" {
-  count = locals.create_requester ? 1 : 0
+  count          = local.create_requester ? 1 : 0
   network_acl_id = tolist(data.aws_network_acls.requester.ids)[0]
   rule_number    = 1000 + var.serial
   egress         = true
