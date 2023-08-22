@@ -6,7 +6,7 @@ resource "aws_route" "accepter_public" {
     count.index
   )
   destination_cidr_block    = data.aws_vpc.requester.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter.id
+  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter[0].id
 }
 
 resource "aws_route" "accepter_private" {
@@ -17,7 +17,7 @@ resource "aws_route" "accepter_private" {
     count.index
   )
   destination_cidr_block    = data.aws_vpc.requester.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter.id
+  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter[0].id
 }
 
 resource "aws_route" "accepter_secure" {
@@ -28,7 +28,7 @@ resource "aws_route" "accepter_secure" {
     count.index
   )
   destination_cidr_block    = data.aws_vpc.requester.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter.id
+  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.accepter[0].id
 }
 
 resource "aws_route" "requester" {
@@ -38,5 +38,5 @@ resource "aws_route" "requester" {
     count.index
   )
   destination_cidr_block    = data.aws_vpc.accepter.cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.requester.id
+  vpc_peering_connection_id = aws_vpc_peering_connection.requester[0].id
 }
