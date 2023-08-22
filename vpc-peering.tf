@@ -1,4 +1,5 @@
 resource "aws_vpc_peering_connection" "requester" {
+  count = locals.create_requester ? 0 : 1
   peer_vpc_id   = var.peer_vpc_id
   peer_owner_id = var.peer_owner_id
   vpc_id        = var.vpc_id
@@ -6,7 +7,8 @@ resource "aws_vpc_peering_connection" "requester" {
 }
 
 resource "aws_vpc_peering_connection_accepter" "accepter" {
+  count = locals.create_accepter ? 0 : 1
   provider                  = aws.peer
-  vpc_peering_connection_id = aws_vpc_peering_connection.requester.id
+  vpc_peering_connection_id = locals.create_requester ? aws_vpc_peering_connection.requester[0].id : var.requester_connection_id 
   auto_accept               = true
 }

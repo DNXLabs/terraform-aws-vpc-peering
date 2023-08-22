@@ -44,6 +44,8 @@ The following resources will be created:
 | peer\_vpc\_id | VPC ID of accepter | `any` | n/a | yes |
 | serial | Number of this peering, distinct from others, to avoid conflict with NACL rule number | `number` | `0` | no |
 | vpc\_id | VPC ID of requester | `any` | n/a | yes |
+| mode | Defines if the module will create accepter or requester or both | `complete / requester / accepter` | `complete` | no |
+| requester\_connection\_id | Id of requester vpc peering connection if not creating inside module | `any` | n/a | no |
 
 ## Outputs
 
