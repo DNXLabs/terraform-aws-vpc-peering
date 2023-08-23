@@ -1,122 +1,78 @@
 data "aws_vpc" "requester" {
-  id = var.vpc_id
+  count = local.create_requester ? 1 : 0
+  id = var.requester_vpc_id
 }
 
 data "aws_vpc" "accepter" {
-  provider = aws.peer
-  id       = var.peer_vpc_id
+  count = local.create_accepter ? 1 : 0
+  provider = aws.accepter
+  id       = var.accepter_vpc_id
 }
 
 data "aws_subnets" "requester" {
+  for_each = toset(var.requester_subnets)
+
   filter {
-    name   = "vpc_id"
-    values = [var.peer_vpc_id]
+    name   = "vpc-id"
+    values = [var.requester_vpc_id]
   }
 
+  tags = {
+    Scheme = each.value
+  }
+}
+
+data "aws_subnets" "accepter" {
+  provider = aws.accepter
+  for_each = toset(var.accepter_subnets)
+
+  filter {
+    name   = "vpc-id"
+    values = [var.accepter_vpc_id]
+  }
 
   tags = {
-    Scheme = "transit"
+    Scheme = each.value
   }
 }
 
 data "aws_subnet" "requester" {
-  count = length(data.aws_subnets.requester.ids)
-  id    = tolist(data.aws_subnets.requester.ids)[count.index]
+  for_each = toset([ for id in data.aws_subnets.requester : id.ids ][0])
+  id       = each.value
 }
 
-data "aws_subnets" "accepter_public" {
-  provider = aws.peer
-
-  filter {
-    name   = "vpc_id"
-    values = [var.peer_vpc_id]
-  }
-
-  tags = {
-    Scheme = "public"
-  }
-}
-
-data "aws_subnets" "accepter_private" {
-  provider = aws.peer
-
-  filter {
-    name   = "vpc_id"
-    values = [var.peer_vpc_id]
-  }
-
-  tags = {
-    Scheme = "private"
-  }
-}
-
-data "aws_subnets" "accepter_secure" {
-  provider = aws.peer
-
-  filter {
-    name   = "vpc_id"
-    values = [var.peer_vpc_id]
-  }
-
-  tags = {
-    Scheme = "secure"
-  }
-}
-
-data "aws_route_table" "accepter_public" {
-  provider  = aws.peer
-  count     = length(data.aws_subnets.accepter_public.ids)
-  subnet_id = tolist(data.aws_subnets.accepter_public.ids)[count.index]
-}
-
-data "aws_route_table" "accepter_private" {
-  provider  = aws.peer
-  count     = length(data.aws_subnets.accepter_private.ids)
-  subnet_id = tolist(data.aws_subnets.accepter_private.ids)[count.index]
-}
-
-data "aws_route_table" "accepter_secure" {
-  provider  = aws.peer
-  count     = length(data.aws_subnets.accepter_secure.ids)
-  subnet_id = tolist(data.aws_subnets.accepter_secure.ids)[count.index]
+data "aws_subnet" "accepter" {
+  provider = aws.accepter
+  for_each = toset([ for id in data.aws_subnets.accepter : id.ids ][0])
+  id       = each.value
 }
 
 data "aws_route_table" "requester" {
-  count     = length(data.aws_subnets.requester.ids)
-  subnet_id = tolist(data.aws_subnets.requester.ids)[count.index]
+  for_each  = toset([ for id in data.aws_subnets.requester : id.ids ][0])
+  subnet_id = each.value
 }
 
-data "aws_network_acls" "accepter_public" {
-  provider = aws.peer
-  vpc_id   = var.peer_vpc_id
-
-  tags = {
-    Scheme = "public"
-  }
+data "aws_route_table" "accepter" {
+  provider  = aws.accepter
+  for_each  = toset([ for id in data.aws_subnets.accepter : id.ids ][0])
+  subnet_id = each.value
 }
 
-data "aws_network_acls" "accepter_private" {
-  provider = aws.peer
-  vpc_id   = var.peer_vpc_id
+data "aws_network_acls" "accepter" {
+  provider = aws.accepter
+  for_each = toset(var.accepter_subnets)
+  vpc_id   = var.accepter_vpc_id
 
   tags = {
-    Scheme = "private"
-  }
-}
-
-data "aws_network_acls" "accepter_secure" {
-  provider = aws.peer
-  vpc_id   = var.peer_vpc_id
-
-  tags = {
-    Scheme = "secure"
+    Scheme = each.value
   }
 }
 
 data "aws_network_acls" "requester" {
-  vpc_id = var.vpc_id
+  for_each = toset(var.requester_subnets)
+  vpc_id   = var.requester_vpc_id
 
   tags = {
-    Scheme = "transit"
+    Scheme = each.value
   }
 }
