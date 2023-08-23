@@ -1,10 +1,10 @@
 data "aws_vpc" "requester" {
   count = local.create_requester ? 1 : 0
-  id = var.requester_vpc_id
+  id    = var.requester_vpc_id
 }
 
 data "aws_vpc" "accepter" {
-  count = local.create_accepter ? 1 : 0
+  count    = local.create_accepter ? 1 : 0
   provider = aws.accepter
   id       = var.accepter_vpc_id
 }
@@ -37,24 +37,24 @@ data "aws_subnets" "accepter" {
 }
 
 data "aws_subnet" "requester" {
-  for_each = toset([ for id in data.aws_subnets.requester : id.ids ][0])
+  for_each = toset([for id in data.aws_subnets.requester : id.ids][0])
   id       = each.value
 }
 
 data "aws_subnet" "accepter" {
   provider = aws.accepter
-  for_each = toset([ for id in data.aws_subnets.accepter : id.ids ][0])
+  for_each = toset([for id in data.aws_subnets.accepter : id.ids][0])
   id       = each.value
 }
 
 data "aws_route_table" "requester" {
-  for_each  = toset([ for id in data.aws_subnets.requester : id.ids ][0])
+  for_each  = toset([for id in data.aws_subnets.requester : id.ids][0])
   subnet_id = each.value
 }
 
 data "aws_route_table" "accepter" {
   provider  = aws.accepter
-  for_each  = toset([ for id in data.aws_subnets.accepter : id.ids ][0])
+  for_each  = toset([for id in data.aws_subnets.accepter : id.ids][0])
   subnet_id = each.value
 }
 
