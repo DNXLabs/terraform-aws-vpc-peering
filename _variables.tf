@@ -22,7 +22,12 @@ variable "accepter_region" {
 variable "accepter_subnets" {
   description = "Subnets of accepter"
   type        = list(string)
-  default     = ["private", "public", "secure"]
+  default     = []
+}
+
+variable "accepter_cidr_block" {
+  description = "CIDR block of accepter"
+  default     = ""
 }
 
 variable "requester_subnets" {

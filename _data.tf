@@ -48,14 +48,14 @@ data "aws_subnet" "accepter" {
 }
 
 data "aws_route_table" "requester" {
-  for_each  = toset([for id in data.aws_subnets.requester : id.ids][0])
-  subnet_id = each.value
+  for_each  = toset(var.requester_subnets)
+  subnet_id = data.aws_subnets.requester[each.value].ids[0]
 }
 
 data "aws_route_table" "accepter" {
   provider  = aws.accepter
-  for_each  = toset([for id in data.aws_subnets.accepter : id.ids][0])
-  subnet_id = each.value
+  for_each  = toset(var.accepter_subnets)
+  subnet_id = data.aws_subnets.accepter[each.value].ids[0]
 }
 
 data "aws_network_acls" "accepter" {
