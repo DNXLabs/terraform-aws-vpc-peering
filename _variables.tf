@@ -18,3 +18,9 @@ variable "serial" {
 variable "accepter_region" {
   description = "Region of acccepter"
 }
+
+variable "accepter_public_subnet_ids" {
+  type = list(string)
+  description = "List of public subnet IDs of accepter"
+  default = null
+}

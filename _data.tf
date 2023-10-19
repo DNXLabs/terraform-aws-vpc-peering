@@ -22,9 +22,9 @@ data "aws_subnet" "requester" {
 }
 
 data "aws_subnet_ids" "accepter_public" {
+  count = var.accepter_public_subnet_ids == null ? 1 : 0
   provider = aws.peer
   vpc_id   = var.peer_vpc_id
-
   filter {
     name   = "tag:Scheme"
     values = ["public"]
@@ -53,8 +53,8 @@ data "aws_subnet_ids" "accepter_secure" {
 
 data "aws_route_table" "accepter_public" {
   provider  = aws.peer
-  count     = length(data.aws_subnet_ids.accepter_public.ids)
-  subnet_id = tolist(data.aws_subnet_ids.accepter_public.ids)[count.index]
+  count     = length(data.aws_subnet_ids.accepter_public[0].ids)
+  subnet_id = tolist(data.aws_subnet_ids.accepter_public[0].ids)[count.index]
 }
 
 data "aws_route_table" "accepter_private" {
