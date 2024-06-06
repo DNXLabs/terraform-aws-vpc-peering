@@ -18,3 +18,7 @@ variable "serial" {
 variable "accepter_region" {
   description = "Region of acccepter"
 }
+
+variable "block_secure" {
+  description = "Wether to allow peering to secure subnet"
+}

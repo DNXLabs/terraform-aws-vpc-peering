@@ -49,7 +49,7 @@ resource "aws_network_acl_rule" "in_accepter_secure_from_requester" {
   rule_number    = 1000 + count.index
   egress         = false
   protocol       = -1
-  rule_action    = "allow"
+  rule_action    = try(var.block_secure, false) ? "deny": "allow"
   cidr_block     = data.aws_subnet.requester.*.cidr_block[count.index]
 }
 
